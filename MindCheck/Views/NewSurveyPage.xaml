@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MindCheck.Views.NewSurveyPage"
+             Title="{Binding CurrentQuestion.QuestionText}"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <!-- Background shapes -->
+            <Image Source="VectorBlue.png"
+                   AbsoluteLayout.LayoutBounds="0.5, 1.2, 1, 1"
+                   AbsoluteLayout.LayoutFlags="All"
+                   Aspect="AspectFill" />
+            <Image Source="VectorOrange.png"
+                   AbsoluteLayout.LayoutBounds="0.5, 1.5, 1, 1"
+                   AbsoluteLayout.LayoutFlags="All"
+                   Aspect="AspectFill" />
+
+            <!-- Content -->
+            <Grid AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <!-- Header -->
+                <StackLayout Orientation="Horizontal"
+                             BackgroundColor="White"
+                             HeightRequest="50"
+                             Padding="10"
+                             VerticalOptions="Start"
+                             Grid.Row="0">
+                    <ImageButton Source="back_arrow.png"
+                                 HorizontalOptions="Start"
+                                 VerticalOptions="Center"
+                                 WidthRequest="36"
+                                 HeightRequest="36"
+                                 BackgroundColor="Transparent"
+                                 Rotation="180"
+                                 Clicked="OnBackButtonClicked" />
+                    <Label Text="Back to Test Cards"
+                           FontSize="24"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Start"
+                           VerticalOptions="Center"
+                           TextColor="#394758"
+                           Margin="10,0,0,0" />
+                </StackLayout>
+
+                <!-- Content -->
+                <StackLayout Padding="20"
+                             VerticalOptions="FillAndExpand"
+                             Grid.Row="1">
+                    <Label Text="{Binding QuestionCounterText}"
+                           FontSize="16"
+                           TextColor="#394758"
+                           HorizontalOptions="Center" />
+
+                    <!-- Question and Answers -->
+                    <StackLayout Spacing="20"
+                                 VerticalOptions="FillAndExpand">
+                        <Label Text="{Binding CurrentQuestion.QuestionText}"
+                               FontSize="20"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center" 
+                               VerticalOptions="Start"
+                               TextColor="#394758"
+                               Margin="0,20,0,20" />
+
+                        <CollectionView ItemsSource="{Binding CurrentAnswers}"
+                                  SelectedItem="{Binding SelectedAnswer}"
+                                  BackgroundColor="Transparent"
+                                  VerticalOptions="FillAndExpand"
+                                  Margin="0,20,0,0">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Frame BorderColor="#b76e79"
+                                                   CornerRadius="30"
+                                                   Padding="6"
+                                                   Margin="10,10,10,15"
+                                                   BackgroundColor="White"
+                                                   HasShadow="True"
+                                                   HeightRequest="100"
+                                                   VerticalOptions="CenterAndExpand">
+                                            <Frame.Triggers>
+                                                <DataTrigger TargetType="Frame"
+                                                             Binding="{Binding IsSelected, Source={RelativeSource AncestorType={x:Type Grid}}}"
+                                                             Value="True">
+                                                    <Setter Property="BackgroundColor" Value="#b76e79" />
+                                                </DataTrigger>
+                                            </Frame.Triggers>
+                                            <Label Text="{Binding .}"
+                                                   FontSize="16"
+                                                   TextColor="#394758"
+                                                   VerticalTextAlignment="Center"
+                                                   HorizontalOptions="CenterAndExpand">
+                                                <Label.Triggers>
+                                                    <DataTrigger TargetType="Label"
+                                                                 Binding="{Binding IsSelected, Source={RelativeSource AncestorType={x:Type Grid}}}"
+                                                                 Value="True">
+                                                        <Setter Property="TextColor" Value="White" />
+                                                    </DataTrigger>
+                                                </Label.Triggers>
+                                            </Label>
+                                        </Frame>
+                                    </Grid>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </StackLayout>
+                </StackLayout>
+
+                <!-- Continue Button -->
+                <Button Command="{Binding ContinueCommand}" 
+                        Text="Continue" 
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="End"
+                        HeightRequest="50"
+                        Margin="20,10"
+                        BackgroundColor="#4A90E2"
+                        TextColor="White"
+                        CornerRadius="25"
+                        Grid.Row="2"
+                        IsEnabled="{Binding SelectedAnswer}" />
+            </Grid>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

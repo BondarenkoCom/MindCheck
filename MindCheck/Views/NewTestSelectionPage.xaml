@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MindCheck.Views.NewTestSelectionPage"
+             BackgroundColor="#FAFAFA"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <!-- Background shapes -->
+            <Image Source="VectorBlue.png"
+                   AbsoluteLayout.LayoutBounds="0.5, 0.5, 1, 1"
+                   AbsoluteLayout.LayoutFlags="All"
+                   Aspect="AspectFill" />
+            <Image Source="VectorOrange.png"
+                   AbsoluteLayout.LayoutBounds="0.5, 0.75, 1, 1"
+                   AbsoluteLayout.LayoutFlags="All"
+                   Aspect="AspectFill" />
+
+            <!-- Content -->
+            <Grid AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Label Text="Category"
+                       FontFamily="Montserrat"
+                       FontAttributes="Bold"
+                       FontSize="24"
+                       TextColor="#394758"
+                       Margin="20, 20, 0, 0"
+                       Grid.Row="0"
+                       VerticalOptions="Start" />
+
+                <Label Text="No tests available."
+                       FontFamily="Montserrat"
+                       FontSize="16"
+                       TextColor="#394758"
+                       IsVisible="{Binding NoTestsAvailable}"
+                       HorizontalTextAlignment="Center"
+                       VerticalOptions="CenterAndExpand"
+                       Grid.Row="1" />
+
+                <CollectionView ItemsSource="{Binding TestTypes}"
+                                SelectionMode="Single"
+                                BackgroundColor="Transparent"
+                                SelectionChanged="OnItemTapped"
+                                IsVisible="{Binding HasTests}"
+                                Grid.Row="1">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Frame BorderColor="#D5D5D5"
+                                       CornerRadius="12"
+                                       Padding="15,20"
+                                       Margin="20,5">
+                                    <StackLayout Orientation="Horizontal" VerticalOptions="Center" Spacing="0">
+                                        <Label Text="{Binding Name}"
+                                               FontFamily="Montserrat"
+                                               FontSize="20"
+                                               TextColor="#394758"
+                                               VerticalTextAlignment="Center"
+                                               HorizontalOptions="StartAndExpand"/>
+                                        <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="End">
+                                            <Label Text="{Binding TestCount}"
+                                                   FontFamily="Montserrat"
+                                                   FontSize="16"
+                                                   TextColor="#394758"
+                                                   VerticalTextAlignment="Center"/>
+                                            <Label Text="Tests"
+                                                   FontFamily="Montserrat"
+                                                   FontSize="16"
+                                                   TextColor="#394758"
+                                                   VerticalTextAlignment="Center"
+                                                   Margin="5,0,0,0"/>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </Frame>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

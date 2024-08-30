@@ -1,4 +1,6 @@
-﻿namespace MindCheck
+﻿using MindCheck.Views;
+
+namespace MindCheck
 {
     public partial class App : Application
     {
@@ -6,7 +8,8 @@
         {
             InitializeComponent();
 
-            MainPage = new AppShell();
+            // Используем SplashPage при старте приложения
+            MainPage = new NavigationPage(new SplashPage());
         }
     }
-}
+} 
